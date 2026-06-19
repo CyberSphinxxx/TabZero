@@ -1,0 +1,14 @@
+[data-theme="dracula"] {
+  --color-bg: #282a36;
+  --color-surface: #343746;
+  --color-surface-hover: #424450;
+  --color-border: #585a6b;
+  --color-text-primary: #f8f8f2;
+  --color-text-secondary: #bd93f9;
+  --color-text-muted: #6272a4;
+  --color-accent: #ff79c6;
+  --color-accent-hover: #ff92d0;
+  --color-success: #50fa7b;
+  --color-warning: #f1fa8c;
+  --color-danger: #ff5555;
+}

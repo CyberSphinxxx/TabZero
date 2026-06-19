@@ -112,12 +112,12 @@ export function CalendarClient() {
   if (loading) {
     return (
       <div className="flex flex-col gap-2">
-        <div className="h-5 w-48 animate-pulse rounded bg-zinc-800" />
+        <div className="h-5 w-48 animate-pulse rounded bg-[var(--color-surface-hover)]" />
         <div className="mt-2 grid grid-cols-7 gap-1">
           {Array.from({ length: 7 }).map((_, i) => (
             <div key={i} className="space-y-1">
-              <div className="h-3 w-full animate-pulse rounded bg-zinc-800" />
-              <div className="h-12 animate-pulse rounded bg-zinc-800/50" />
+              <div className="h-3 w-full animate-pulse rounded bg-[var(--color-surface-hover)]" />
+              <div className="h-12 animate-pulse rounded bg-[var(--color-surface-hover)]/50" />
             </div>
           ))}
         </div>
@@ -129,33 +129,33 @@ export function CalendarClient() {
     <div className="flex flex-col gap-1.5">
       {/* Header row */}
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Calendar
         </p>
         <div className="flex items-center gap-1">
           <button
             onClick={goPrevWeek}
-            className="rounded p-1 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+            className="rounded p-1 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]"
             aria-label="Previous week"
           >
             <ChevronLeft size={14} />
           </button>
           <button
             onClick={goToToday}
-            className="rounded px-2 py-0.5 text-[11px] text-zinc-500 transition-colors hover:text-zinc-300"
+            className="rounded px-2 py-0.5 text-[11px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
           >
             Today
           </button>
           <button
             onClick={goNextWeek}
-            className="rounded p-1 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+            className="rounded p-1 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)]"
             aria-label="Next week"
           >
             <ChevronRight size={14} />
           </button>
           <button
             onClick={() => setShowModal(true)}
-            className="ml-1 flex items-center gap-1 rounded-md bg-zinc-800 px-2 py-1 text-[11px] font-medium text-zinc-300 transition-colors hover:bg-zinc-700"
+            className="ml-1 flex items-center gap-1 rounded-md bg-[var(--color-surface-hover)] px-2 py-1 text-[11px] font-medium text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-border)]"
           >
             <Plus size={12} />
             Add
@@ -164,26 +164,26 @@ export function CalendarClient() {
       </div>
 
       {/* Week range label */}
-      <p className="text-[11px] text-zinc-600">
+      <p className="text-[11px] text-[var(--color-text-muted)]">
         {formatWeekRange(weekStart)}
       </p>
 
       {/* Day headers + compact grid */}
-      <div className="mt-1 grid grid-cols-7 gap-px rounded-lg border border-zinc-800/50 bg-zinc-800/20 overflow-hidden">
+      <div className="mt-1 grid grid-cols-7 gap-px rounded-lg border border-[var(--color-border)]/50 bg-[var(--color-surface-hover)]/20 overflow-hidden">
         {/* Day headers */}
         {weekDates.map((date, i) => (
           <div
             key={i}
             className={`px-1.5 py-1.5 text-center text-[10px] font-medium uppercase ${
               isToday(date)
-                ? "bg-indigo-500/10 text-indigo-400"
-                : "bg-zinc-900/50 text-zinc-500"
+                ? "bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
+                : "bg-[var(--color-surface)]/50 text-[var(--color-text-muted)]"
             }`}
           >
             <span>{DAY_NAMES[i]}</span>
             <span
               className={`ml-1 rounded-full px-1.5 text-[10px] ${
-                isToday(date) ? "bg-indigo-500 text-white" : ""
+                isToday(date) ? "bg-[var(--color-accent)] text-[var(--color-bg)]" : ""
               }`}
             >
               {date.getDate()}
@@ -204,7 +204,7 @@ export function CalendarClient() {
               return (
                 <div
                   key={`${dayIdx}-${hour}`}
-                  className="min-h-[28px] border-t border-zinc-800/30 bg-zinc-950/20 px-1 py-0.5"
+                  className="min-h-[28px] border-t border-[var(--color-border)]/30 bg-[var(--color-bg)]/20 px-1 py-0.5"
                 >
                   {cellEvents.map((event) => {
                     const isFirst =
@@ -243,18 +243,18 @@ export function CalendarClient() {
 
       {/* Event detail popover */}
       {selectedEvent && (
-        <div className="mt-1 rounded-lg border border-zinc-800 bg-zinc-900 p-2.5 shadow-lg">
+        <div className="mt-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 shadow-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div
                 className="h-2.5 w-2.5 rounded-full"
                 style={{ backgroundColor: selectedEvent.color }}
               />
-              <p className="text-sm font-medium text-zinc-200">
+              <p className="text-sm font-medium text-[var(--color-text-primary)]">
                 {selectedEvent.title}
               </p>
               {selectedEvent.isRecurring && (
-                <span className="text-[10px] text-zinc-500">↻ Weekly</span>
+                <span className="text-[10px] text-[var(--color-text-muted)]">↻ Weekly</span>
               )}
             </div>
             <button
@@ -262,12 +262,12 @@ export function CalendarClient() {
                 remove(selectedEvent.id);
                 setSelectedEvent(null);
               }}
-              className="text-[11px] text-zinc-600 transition-colors hover:text-red-400"
+              className="text-[11px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-danger)]"
             >
               Delete
             </button>
           </div>
-          <p className="mt-1 text-[11px] text-zinc-500">
+          <p className="mt-1 text-[11px] text-[var(--color-text-muted)]">
             {`${selectedEvent.startHour.toString().padStart(2, "0")}:${selectedEvent.startMin.toString().padStart(2, "0")}`}{" "}
             –{" "}
             {`${selectedEvent.endHour.toString().padStart(2, "0")}:${selectedEvent.endMin.toString().padStart(2, "0")}`}
@@ -277,7 +277,7 @@ export function CalendarClient() {
 
       {/* Empty state */}
       {events.length === 0 && !selectedEvent && (
-        <p className="mt-2 text-center text-[11px] text-zinc-600">
+        <p className="mt-2 text-center text-[11px] text-[var(--color-text-muted)]">
           No events this week. Click Add to schedule something.
         </p>
       )}

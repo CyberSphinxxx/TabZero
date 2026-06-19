@@ -28,3 +28,9 @@ DeepSeek API · pnpm
 ## Detailed rules
 Security, design-system, and state/performance conventions live in
 .claude/rules/ and load automatically when you touch matching files.
+
+## Design taste
+taste-skill is installed at .claude/skills/taste-skill/. Default dials:
+- DESIGN_VARIANCE: 6 — moderate design experimentation
+- MOTION_INTENSITY: 4 — restrained animations, respect reduced motion
+- VISUAL_DENSITY: 5 — balanced information density, generous whitespace

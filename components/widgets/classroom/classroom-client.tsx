@@ -28,12 +28,12 @@ function formatDate(iso: string | null): string {
 }
 
 function dateColor(iso: string | null): string {
-  if (!iso) return "text-zinc-500";
+  if (!iso) return "text-[var(--color-text-muted)]";
   const diff =
     (new Date(iso).getTime() - Date.now()) / (24 * 60 * 60 * 1000);
-  if (diff < 0) return "text-red-400";
-  if (diff < 2) return "text-amber-400";
-  return "text-zinc-500";
+  if (diff < 0) return "text-[var(--color-danger)]";
+  if (diff < 2) return "text-[var(--color-warning)]";
+  return "text-[var(--color-text-muted)]";
 }
 
 export function ClassroomClient() {
@@ -108,12 +108,12 @@ export function ClassroomClient() {
   if (loading) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Classroom
         </p>
         <div className="space-y-2">
-          <div className="h-10 animate-pulse rounded-lg bg-zinc-800" />
-          <div className="h-10 animate-pulse rounded-lg bg-zinc-800/50" />
+          <div className="h-10 animate-pulse rounded-lg bg-[var(--color-surface-hover)]" />
+          <div className="h-10 animate-pulse rounded-lg bg-[var(--color-surface-hover)]/50" />
         </div>
       </div>
     );
@@ -125,17 +125,17 @@ export function ClassroomClient() {
     <div className="flex flex-col gap-1.5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Classroom
         </p>
         {configured === false && (
-          <span className="flex items-center gap-1 text-[10px] text-amber-500">
+          <span className="flex items-center gap-1 text-[10px] text-[var(--color-warning)]">
             <AlertCircle size={10} />
             Not connected
           </span>
         )}
         {configured === true && (
-          <span className="text-[10px] text-emerald-500">
+          <span className="text-[10px] text-[var(--color-success)]">
             {hasStoredToken ? "School account" : "Connected"}
           </span>
         )}
@@ -147,7 +147,7 @@ export function ClassroomClient() {
           <button
             onClick={handleConnect}
             disabled={connecting}
-            className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-[11px] text-zinc-400 transition-colors hover:border-zinc-700 hover:text-zinc-200 disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-3 py-1.5 text-[11px] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] disabled:opacity-50"
           >
             <BookOpen size={12} />
             {connecting ? "Connecting…" : "Connect Classroom"}
@@ -155,13 +155,13 @@ export function ClassroomClient() {
         ) : (
           <button
             onClick={handleDisconnect}
-            className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-1.5 text-[11px] text-zinc-500 transition-colors hover:border-red-800 hover:text-red-400"
+            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-3 py-1.5 text-[11px] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-danger)] hover:text-[var(--color-danger)]"
           >
             Disconnect
           </button>
         )}
         {connectError && (
-          <p className="text-[10px] text-amber-400">{connectError}</p>
+          <p className="text-[10px] text-[var(--color-warning)]">{connectError}</p>
         )}
       </div>
 
@@ -171,13 +171,13 @@ export function ClassroomClient() {
           {assignments.map((assignment) => (
             <div
               key={assignment.id}
-              className="group flex items-start gap-2.5 rounded-lg border border-zinc-800/50 px-3 py-2 transition-colors hover:border-zinc-700"
+              className="group flex items-start gap-2.5 rounded-lg border border-[var(--color-border)]/50 px-3 py-2 transition-colors hover:border-[var(--color-text-muted)]"
             >
               {/* Submitted status */}
               {assignment.submitted ? (
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-success)]" />
               ) : (
-                <Circle className="mt-0.5 h-4 w-4 shrink-0 text-zinc-700" />
+                <Circle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-text-muted)]" />
               )}
 
               {/* Content */}
@@ -186,8 +186,8 @@ export function ClassroomClient() {
                   <p
                     className={`truncate text-sm font-medium ${
                       assignment.submitted
-                        ? "text-zinc-600"
-                        : "text-zinc-200"
+                        ? "text-[var(--color-text-muted)]"
+                        : "text-[var(--color-text-primary)]"
                     }`}
                   >
                     {assignment.title}
@@ -197,13 +197,13 @@ export function ClassroomClient() {
                       href={assignment.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="shrink-0 text-zinc-700 opacity-0 transition-opacity hover:text-zinc-400 group-hover:opacity-100"
+                      className="shrink-0 text-[var(--color-text-muted)] opacity-0 transition-opacity hover:text-[var(--color-text-secondary)] group-hover:opacity-100"
                     >
                       <ExternalLink size={10} />
                     </a>
                   )}
                 </div>
-                <p className="truncate text-[11px] text-zinc-600">
+                <p className="truncate text-[11px] text-[var(--color-text-muted)]">
                   {assignment.courseName}
                 </p>
               </div>
@@ -220,14 +220,14 @@ export function ClassroomClient() {
           ))}
         </div>
       ) : (
-        <p className="mt-3 text-center text-sm text-zinc-600">
+        <p className="mt-3 text-center text-sm text-[var(--color-text-muted)]">
           {configured ? "No assignments found." : "Connect to see your assignments."}
         </p>
       )}
 
       {/* Api not enabled banner */}
       {configured === false && error && !hasStoredToken && (
-        <p className="mt-1 rounded-lg border border-amber-900/30 bg-amber-950/20 px-2.5 py-1.5 text-[11px] leading-relaxed text-amber-400">
+        <p className="mt-1 rounded-lg border border-[var(--color-warning)]/30 bg-[var(--color-warning)]/10 px-2.5 py-1.5 text-[11px] leading-relaxed text-[var(--color-warning)]">
           {error}
         </p>
       )}

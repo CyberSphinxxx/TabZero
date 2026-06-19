@@ -6,27 +6,27 @@ import { ExternalLink, X } from "lucide-react";
 
 // Deterministic color from a string — always the same color for the same domain
 const COLORS = [
-  "bg-emerald-600",
-  "bg-blue-600",
-  "bg-violet-600",
-  "bg-amber-600",
-  "bg-rose-600",
-  "bg-cyan-600",
-  "bg-pink-600",
-  "bg-lime-600",
+  "bg-[var(--color-accent)]",
+  "bg-[var(--color-accent-hover)]",
+  "bg-[var(--color-success)]",
+  "bg-[var(--color-warning)]",
+  "bg-[var(--color-danger)]",
+  "bg-[var(--color-text-secondary)]",
+  "bg-[var(--color-text-muted)]",
+  "bg-[var(--color-surface-hover)]",
 ];
 
 const TAG_COLORS: Record<string, string> = {
-  react: "bg-sky-600/20 text-sky-400",
-  tutorial: "bg-purple-600/20 text-purple-400",
-  news: "bg-amber-600/20 text-amber-400",
-  github: "bg-zinc-600/20 text-zinc-400",
-  docs: "bg-blue-600/20 text-blue-400",
-  design: "bg-pink-600/20 text-pink-400",
-  college: "bg-emerald-600/20 text-emerald-400",
-  ai: "bg-violet-600/20 text-violet-400",
-  video: "bg-rose-600/20 text-rose-400",
-  social: "bg-cyan-600/20 text-cyan-400",
+  react: "bg-[var(--color-accent)]/20 text-[var(--color-accent)]",
+  tutorial: "bg-[var(--color-accent-hover)]/20 text-[var(--color-accent-hover)]",
+  news: "bg-[var(--color-warning)]/20 text-[var(--color-warning)]",
+  github: "bg-[var(--color-text-muted)]/20 text-[var(--color-text-muted)]",
+  docs: "bg-[var(--color-accent)]/20 text-[var(--color-accent)]",
+  design: "bg-[var(--color-danger)]/20 text-[var(--color-danger)]",
+  college: "bg-[var(--color-success)]/20 text-[var(--color-success)]",
+  ai: "bg-[var(--color-accent-hover)]/20 text-[var(--color-accent-hover)]",
+  video: "bg-[var(--color-danger)]/20 text-[var(--color-danger)]",
+  social: "bg-[var(--color-text-secondary)]/20 text-[var(--color-text-secondary)]",
 };
 
 function domainColor(domain: string): string {
@@ -65,7 +65,7 @@ function formatUrl(url: string): string {
 }
 
 function tagStyle(tag: string): string {
-  return TAG_COLORS[tag] ?? "bg-zinc-700/40 text-zinc-400";
+  return TAG_COLORS[tag] ?? "bg-[var(--color-text-muted)]/40 text-[var(--color-text-muted)]";
 }
 
 export function LinkClient() {
@@ -122,13 +122,13 @@ export function LinkClient() {
   if (loading) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Link Stash
         </p>
         <div className="space-y-2">
-          <div className="h-8 animate-pulse rounded-lg bg-zinc-800" />
-          <div className="h-10 animate-pulse rounded-lg bg-zinc-800/50" />
-          <div className="h-10 animate-pulse rounded-lg bg-zinc-800/50" />
+          <div className="h-8 animate-pulse rounded-lg bg-[var(--color-surface-hover)]" />
+          <div className="h-10 animate-pulse rounded-lg bg-[var(--color-surface-hover)]/50" />
+          <div className="h-10 animate-pulse rounded-lg bg-[var(--color-surface-hover)]/50" />
         </div>
       </div>
     );
@@ -137,7 +137,7 @@ export function LinkClient() {
   return (
     <div className="flex flex-col gap-1.5">
       {/* Header */}
-      <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
         Link Stash
       </p>
 
@@ -149,7 +149,7 @@ export function LinkClient() {
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           placeholder="Paste a URL…"
-          className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-200 outline-none transition-colors placeholder:text-zinc-600 focus:border-zinc-600 focus:bg-zinc-800/80"
+          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-text-muted)] focus:bg-[var(--color-surface-hover)]/80"
         />
       </form>
 
@@ -159,7 +159,7 @@ export function LinkClient() {
           {links.map((link) => (
             <div
               key={link.id}
-              className="group flex items-center gap-2.5 rounded-lg border border-zinc-800/50 px-3 py-2 transition-colors hover:border-zinc-700 hover:bg-zinc-800/30"
+              className="group flex items-center gap-2.5 rounded-lg border border-[var(--color-border)]/50 px-3 py-2 transition-colors hover:border-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)]/30"
             >
               {/* Domain initial badge */}
               <div
@@ -174,15 +174,15 @@ export function LinkClient() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-sm font-medium text-zinc-200 transition-colors hover:text-zinc-100"
+                  className="flex items-center gap-1 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:text-[var(--color-text-primary)]"
                 >
                   <span className="truncate">{link.title}</span>
                   <ExternalLink
                     size={10}
-                    className="shrink-0 text-zinc-600 opacity-0 transition-opacity group-hover:opacity-100"
+                    className="shrink-0 text-[var(--color-text-muted)] opacity-0 transition-opacity group-hover:opacity-100"
                   />
                 </a>
-                <p className="truncate text-[11px] text-zinc-600">
+                <p className="truncate text-[11px] text-[var(--color-text-muted)]">
                   {formatUrl(link.url)}
                 </p>
                 {/* Tags */}
@@ -203,7 +203,7 @@ export function LinkClient() {
               {/* Delete */}
               <button
                 onClick={() => remove(link.id)}
-                className="shrink-0 text-zinc-700 opacity-0 transition-all hover:text-zinc-400 group-hover:opacity-100"
+                className="shrink-0 text-[var(--color-text-muted)] opacity-0 transition-all hover:text-[var(--color-text-secondary)] group-hover:opacity-100"
                 aria-label="Delete link"
               >
                 <X size={14} />
@@ -212,7 +212,7 @@ export function LinkClient() {
           ))}
         </div>
       ) : (
-        <p className="mt-4 text-center text-sm text-zinc-600">
+        <p className="mt-4 text-center text-sm text-[var(--color-text-muted)]">
           No links yet. Paste a URL to get started.
         </p>
       )}

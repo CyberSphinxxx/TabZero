@@ -1,0 +1,14 @@
+[data-theme="rose"] {
+  --color-bg: #1c1417;
+  --color-surface: #2c1d23;
+  --color-surface-hover: #3d2830;
+  --color-border: #4a3540;
+  --color-text-primary: #fce7f3;
+  --color-text-secondary: #f9a8d4;
+  --color-text-muted: #9d6b7e;
+  --color-accent: #f43f5e;
+  --color-accent-hover: #fb7185;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+}

@@ -52,13 +52,13 @@ export function BrainDumpClient() {
   if (loading) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Quick Brain Dump
         </p>
         <div className="space-y-2">
-          <div className="h-8 animate-pulse rounded bg-zinc-800" />
-          <div className="h-4 animate-pulse rounded bg-zinc-800/50" />
-          <div className="h-4 w-3/4 animate-pulse rounded bg-zinc-800/50" />
+          <div className="h-8 animate-pulse rounded bg-[var(--color-surface-hover)]" />
+          <div className="h-4 animate-pulse rounded bg-[var(--color-surface-hover)]/50" />
+          <div className="h-4 w-3/4 animate-pulse rounded bg-[var(--color-surface-hover)]/50" />
         </div>
       </div>
     );
@@ -66,7 +66,7 @@ export function BrainDumpClient() {
 
   return (
     <div ref={containerRef} className="flex flex-col gap-3">
-      <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
         Quick Brain Dump
       </p>
 
@@ -74,8 +74,8 @@ export function BrainDumpClient() {
       <div
         className={`rounded-lg border transition-colors ${
           focused
-            ? "border-zinc-600 bg-zinc-800/80"
-            : "border-zinc-800 bg-zinc-900/50"
+            ? "border-[var(--color-text-muted)] bg-[var(--color-surface-hover)]/80"
+            : "border-[var(--color-border)] bg-[var(--color-surface)]/50"
         }`}
       >
         <textarea
@@ -87,11 +87,11 @@ export function BrainDumpClient() {
           onKeyDown={handleKeyDown}
           placeholder="What&apos;s on your mind?"
           rows={1}
-          className="w-full resize-none bg-transparent px-3 py-2.5 text-sm text-zinc-200 outline-none placeholder:text-zinc-600"
+          className="w-full resize-none bg-transparent px-3 py-2.5 text-sm text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)]"
         />
       </div>
       {draft.trim().length > 0 && (
-        <p className="text-right text-[10px] text-zinc-600">
+        <p className="text-right text-[10px] text-[var(--color-text-muted)]">
           Ctrl+Enter to save
         </p>
       )}
@@ -102,19 +102,19 @@ export function BrainDumpClient() {
           {notes.slice(0, 5).map((note) => (
             <div
               key={note.id}
-              className="group flex items-start gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-zinc-800/50"
+              className="group flex items-start gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-[var(--color-surface-hover)]/50"
             >
-              <span className="mt-0.5 text-zinc-400 select-none">·</span>
-              <p className="flex-1 text-sm leading-relaxed text-zinc-400">
+              <span className="mt-0.5 text-[var(--color-text-secondary)] select-none">·</span>
+              <p className="flex-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                 {note.content}
               </p>
               <div className="flex shrink-0 items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-                <span className="text-[10px] text-zinc-600">
+                <span className="text-[10px] text-[var(--color-text-muted)]">
                   {formatTime(note.expiresAt)}
                 </span>
                 <button
                   onClick={() => remove(note.id)}
-                  className="text-zinc-600 transition-colors hover:text-zinc-400"
+                  className="text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
                   aria-label="Dismiss note"
                 >
                   <svg
@@ -139,7 +139,7 @@ export function BrainDumpClient() {
 
       {/* Empty state */}
       {notes.length === 0 && !loading && (
-        <p className="py-4 text-center text-sm text-zinc-600">
+        <p className="py-4 text-center text-sm text-[var(--color-text-muted)]">
           Nothing yet. Write whatever comes to mind.
         </p>
       )}

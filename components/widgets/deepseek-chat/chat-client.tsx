@@ -128,7 +128,7 @@ export function ChatClient() {
     };
   }, []);
 
-  // --- Morning Briefing ---
+  // --- Morning Briefing (deferred 2s so page paints first) ---
   useEffect(() => {
     // Only run once per session, when both hooks have resolved
     if (briefingStatus !== "idle") return;
@@ -138,9 +138,17 @@ export function ChatClient() {
       return;
     }
 
-    setBriefingStatus("loading");
-
     let cancelled = false;
+
+    const timer = setTimeout(() => {
+      setBriefingStatus("loading");
+      generateBriefing();
+    }, 2000);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
 
     async function generateBriefing() {
       try {
@@ -219,12 +227,6 @@ export function ChatClient() {
         }
       }
     }
-
-    generateBriefing();
-
-    return () => {
-      cancelled = true;
-    };
   }, [briefingStatus, todosLoading, eventsLoading, todos, events]);
 
   /** Execute a parsed action block via the appropriate hook */
@@ -400,7 +402,7 @@ export function ChatClient() {
       {/* Header — collapsible toggle */}
       <button
         onClick={() => setExpanded((v) => !v)}
-        className="flex items-center justify-between text-xs font-medium uppercase tracking-widest text-zinc-500 transition-colors hover:text-zinc-300"
+        className="flex items-center justify-between text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-primary)]"
       >
         <span>Rubber Duck</span>
         <svg
@@ -420,7 +422,7 @@ export function ChatClient() {
 
       {/* Empty state when collapsed */}
       {!expanded && messages.length === 0 && !streaming && (
-        <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+        <p className="mt-3 text-sm leading-relaxed text-[var(--color-text-muted)]">
           AI copilot for coding, planning, and rubber ducking.
         </p>
       )}
@@ -436,7 +438,7 @@ export function ChatClient() {
           >
             {messages.length === 0 && !streaming && briefingStatus === "idle" && (
               <div className="flex h-full items-center justify-center">
-                <p className="text-center text-sm text-zinc-600">
+                <p className="text-center text-sm text-[var(--color-text-muted)]">
                   Ask me anything — code, planning, rubber ducking.
                 </p>
               </div>
@@ -445,8 +447,8 @@ export function ChatClient() {
             {messages.length === 0 && briefingStatus === "loading" && (
               <div className="flex h-full items-center justify-center">
                 <div className="flex flex-col items-center gap-2">
-                  <span className="inline-flex items-center gap-1 text-sm text-zinc-500">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+                  <span className="inline-flex items-center gap-1 text-sm text-[var(--color-text-muted)]">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--color-success)]" />
                     Generating morning briefing&hellip;
                   </span>
                 </div>
@@ -457,7 +459,7 @@ export function ChatClient() {
               <MessageBubble key={i} role={msg.role}>
                 {msg.content || (
                   <span className="inline-flex items-center gap-1">
-                    <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--color-success)]" />
                     Thinking&hellip;
                   </span>
                 )}
@@ -466,11 +468,11 @@ export function ChatClient() {
 
             {/* Error banner */}
             {error && (
-              <div className="flex items-center justify-between rounded-lg border border-red-900/50 bg-red-950/30 px-3.5 py-2">
-                <p className="text-sm text-red-400">{error}</p>
+              <div className="flex items-center justify-between rounded-lg border border-[var(--color-danger)]/50 bg-[var(--color-danger)]/10 px-3.5 py-2">
+                <p className="text-sm text-[var(--color-danger)]">{error}</p>
                 <button
                   onClick={retryLast}
-                  className="ml-3 shrink-0 text-xs font-medium text-red-300 transition-colors hover:text-red-100"
+                  className="ml-3 shrink-0 text-xs font-medium text-[var(--color-danger)] transition-colors hover:text-[var(--color-text-primary)]"
                 >
                   Retry
                 </button>
@@ -479,7 +481,7 @@ export function ChatClient() {
           </div>
 
           {/* Input area */}
-          <div className="mt-3 flex items-end gap-2 border-t border-zinc-800 pt-3">
+          <div className="mt-3 flex items-end gap-2 border-t border-[var(--color-border)] pt-3">
             <textarea
               ref={inputRef}
               value={draft}
@@ -488,13 +490,13 @@ export function ChatClient() {
               placeholder='e.g. "Remind me to submit thesis" or "Schedule study block tomorrow at 2pm"&hellip;'
               rows={1}
               disabled={streaming}
-              className="flex-1 resize-none bg-transparent text-sm leading-relaxed text-zinc-200 outline-none placeholder:text-zinc-600 disabled:opacity-50"
+              className="flex-1 resize-none bg-transparent text-sm leading-relaxed text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)] disabled:opacity-50"
             />
             <div className="flex items-center gap-1">
               {messages.length > 0 && (
                 <button
                   onClick={resetChat}
-                  className="rounded-md px-2 py-1.5 text-[11px] text-zinc-600 transition-colors hover:text-zinc-400"
+                  className="rounded-md px-2 py-1.5 text-[11px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
                   title="Clear conversation"
                 >
                   Clear
@@ -503,7 +505,7 @@ export function ChatClient() {
               <button
                 onClick={sendMessage}
                 disabled={!draft.trim() || streaming}
-                className="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-800 text-zinc-400 transition-colors hover:bg-zinc-700 hover:text-zinc-200 disabled:opacity-30 disabled:hover:bg-zinc-800"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-surface-hover)] text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-border)] hover:text-[var(--color-text-primary)] disabled:opacity-30 disabled:hover:bg-[var(--color-surface-hover)]"
                 aria-label="Send message"
               >
                 <svg

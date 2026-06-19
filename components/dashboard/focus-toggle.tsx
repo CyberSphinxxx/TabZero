@@ -26,8 +26,8 @@ export function FocusToggle() {
   return (
     <div className="flex items-center gap-2">
       {/* Pomodoro timer */}
-      <div className="flex items-center gap-1 rounded-lg border border-zinc-800 bg-zinc-900/60 px-2 py-1">
-        <Timer size={12} className="text-zinc-500" />
+      <div className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-2 py-1">
+        <Timer size={12} className="text-[var(--color-text-muted)]" />
 
         {/* Circular progress indicator */}
         <div className="relative h-4 w-4">
@@ -63,10 +63,10 @@ export function FocusToggle() {
         <span
           className={`text-[11px] font-medium tabular-nums ${
             remaining < 5 * 60
-              ? "text-red-400"
+              ? "text-[var(--color-danger)]"
               : remaining < 10 * 60
-                ? "text-amber-400"
-                : "text-zinc-400"
+                ? "text-[var(--color-warning)]"
+                : "text-[var(--color-text-secondary)]"
           }`}
         >
           {formatTime(remaining)}
@@ -75,14 +75,14 @@ export function FocusToggle() {
         {/* Timer controls */}
         <button
           onClick={timerActive ? pauseTimer : startTimer}
-          className="ml-0.5 rounded p-0.5 text-zinc-600 transition-colors hover:text-zinc-300"
+          className="ml-0.5 rounded p-0.5 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
           aria-label={timerActive ? "Pause" : "Start"}
         >
           {timerActive ? <Pause size={10} /> : <Play size={10} />}
         </button>
         <button
           onClick={resetTimer}
-          className="rounded p-0.5 text-zinc-700 transition-colors hover:text-zinc-400"
+          className="rounded p-0.5 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
           aria-label="Reset"
         >
           <RotateCcw size={10} />
@@ -95,8 +95,8 @@ export function FocusToggle() {
           onClick={toggleFocusMode}
           className={`flex items-center gap-1 rounded-lg border px-2 py-1 text-[11px] font-medium transition-colors ${
             isFocusMode
-              ? "border-emerald-700 bg-emerald-950/50 text-emerald-400"
-              : "border-zinc-800 bg-zinc-900/60 text-zinc-500 hover:text-zinc-300"
+              ? "border-[var(--color-success)]/50 bg-[var(--color-surface)] text-[var(--color-success)]"
+              : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
           }`}
         >
           <Sparkles size={12} />

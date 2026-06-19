@@ -66,7 +66,7 @@ export function CommandPalette() {
   return (
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       <CommandDialog>
-        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-zinc-500 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <Command className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-[var(--color-text-muted)] [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           <CommandInput
             ref={inputRef}
             placeholder="Search todos, links, events, kanban cards…"
@@ -84,15 +84,15 @@ export function CommandPalette() {
                     className="flex items-center gap-2"
                   >
                     {todo.completed ? (
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-[var(--color-success)] shrink-0" />
                     ) : (
-                      <Circle className="h-4 w-4 text-zinc-600 shrink-0" />
+                      <Circle className="h-4 w-4 text-[var(--color-text-muted)] shrink-0" />
                     )}
                     <span
                       className={
                         todo.completed
-                          ? "text-zinc-600 line-through"
-                          : "text-zinc-200"
+                          ? "text-[var(--color-text-muted)] line-through"
+                          : "text-[var(--color-text-primary)]"
                       }
                     >
                       {todo.text}
@@ -111,11 +111,11 @@ export function CommandPalette() {
                     onSelect={() => handleSelect(link.url)}
                     className="flex items-center gap-2"
                   >
-                    <ExternalLink className="h-4 w-4 text-blue-500 shrink-0" />
-                    <span className="flex-1 truncate text-zinc-200">
+                    <ExternalLink className="h-4 w-4 text-[var(--color-accent)] shrink-0" />
+                    <span className="flex-1 truncate text-[var(--color-text-primary)]">
                       {link.title}
                     </span>
-                    <span className="text-[11px] text-zinc-600 shrink-0">
+                    <span className="text-[11px] text-[var(--color-text-muted)] shrink-0">
                       {link.tags.length > 0 ? link.tags.join(", ") : ""}
                     </span>
                   </CommandItem>
@@ -132,9 +132,9 @@ export function CommandPalette() {
                     onSelect={() => setOpen(false)}
                     className="flex items-center gap-2"
                   >
-                    <Calendar className="h-4 w-4 text-amber-500 shrink-0" />
-                    <span className="text-zinc-200">{event.title}</span>
-                    <span className="ml-auto text-[11px] text-zinc-600">
+                    <Calendar className="h-4 w-4 text-[var(--color-warning)] shrink-0" />
+                    <span className="text-[var(--color-text-primary)]">{event.title}</span>
+                    <span className="ml-auto text-[11px] text-[var(--color-text-muted)]">
                       {event.occurrenceDate}
                     </span>
                   </CommandItem>
@@ -151,9 +151,9 @@ export function CommandPalette() {
                     onSelect={() => setOpen(false)}
                     className="flex items-center gap-2"
                   >
-                    <Columns3 className="h-4 w-4 text-violet-500 shrink-0" />
-                    <span className="text-zinc-200">{item.text}</span>
-                    <span className="ml-auto text-[11px] uppercase text-zinc-600">
+                    <Columns3 className="h-4 w-4 text-[var(--color-accent)] shrink-0" />
+                    <span className="text-[var(--color-text-primary)]">{item.text}</span>
+                    <span className="ml-auto text-[11px] uppercase text-[var(--color-text-muted)]">
                       {item.status}
                     </span>
                   </CommandItem>

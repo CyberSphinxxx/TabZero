@@ -1,0 +1,14 @@
+[data-theme="nord"] {
+  --color-bg: #2e3440;
+  --color-surface: #3b4252;
+  --color-surface-hover: #434c5e;
+  --color-border: #4c566a;
+  --color-text-primary: #eceff4;
+  --color-text-secondary: #81a1c1;
+  --color-text-muted: #616e88;
+  --color-accent: #88c0d0;
+  --color-accent-hover: #8fbcbb;
+  --color-success: #a3be8c;
+  --color-warning: #ebcb8b;
+  --color-danger: #bf616a;
+}

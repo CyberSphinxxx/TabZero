@@ -35,9 +35,9 @@ const COLUMN_COLORS: Record<KanbanStatus, string> = {
 };
 
 const COLUMN_HEADER_COLORS: Record<KanbanStatus, string> = {
-  todo: "text-zinc-500",
-  "in-progress": "text-amber-400",
-  done: "text-emerald-400",
+  todo: "text-[var(--color-text-muted)]",
+  "in-progress": "text-[var(--color-warning)]",
+  done: "text-[var(--color-success)]",
 };
 
 function KanbanCard({
@@ -66,7 +66,7 @@ function KanbanCard({
     <div
       ref={setNodeRef}
       style={style}
-      className={`group flex items-start gap-2 rounded-lg border border-zinc-800/60 bg-zinc-900/80 px-3 py-2.5 transition-colors hover:border-zinc-700 ${
+      className={`group flex items-start gap-2 rounded-lg border border-[var(--color-border)]/60 bg-[var(--color-surface)]/80 px-3 py-2.5 transition-colors hover:border-[var(--color-text-muted)] ${
         isDragging ? "z-50 shadow-xl" : ""
       }`}
     >
@@ -74,21 +74,21 @@ function KanbanCard({
       <button
         {...attributes}
         {...listeners}
-        className="mt-0.5 shrink-0 cursor-grab text-zinc-700 transition-colors hover:text-zinc-400 active:cursor-grabbing"
+        className="mt-0.5 shrink-0 cursor-grab text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)] active:cursor-grabbing"
         aria-label="Drag to reorder"
       >
         <GripVertical size={12} />
       </button>
 
       {/* Text */}
-      <p className="flex-1 text-sm leading-relaxed text-zinc-300 break-words">
+      <p className="flex-1 text-sm leading-relaxed text-[var(--color-text-primary)] break-words">
         {item.text}
       </p>
 
       {/* Delete */}
       <button
         onClick={() => onDelete(item.id)}
-        className="mt-0.5 shrink-0 text-zinc-700 opacity-0 transition-all hover:text-red-400 group-hover:opacity-100"
+        className="mt-0.5 shrink-0 text-[var(--color-text-muted)] opacity-0 transition-all hover:text-[var(--color-danger)] group-hover:opacity-100"
         aria-label="Delete task"
       >
         <X size={13} />
@@ -133,8 +133,8 @@ function KanbanColumn({
   return (
     <div
       ref={droppableRef}
-      className={`flex flex-col rounded-xl border border-zinc-800/60 bg-zinc-900/30 p-3 transition-colors ${
-        isOver ? "border-zinc-600 bg-zinc-900/60" : ""
+      className={`flex flex-col rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)]/30 p-3 transition-colors ${
+        isOver ? "border-[var(--color-text-muted)] bg-[var(--color-surface)]/60" : ""
       }`}
     >
       {/* Column header */}
@@ -144,20 +144,20 @@ function KanbanColumn({
         >
           {label}
         </p>
-        <span className="text-[11px] text-zinc-600">{items.length}</span>
+        <span className="text-[11px] text-[var(--color-text-muted)]">{items.length}</span>
       </div>
 
       {/* Add input (only on todo column) */}
       {status === "todo" && (
         <form onSubmit={handleSubmit} className="mb-2 mt-2">
-          <div className="flex items-center gap-1 rounded-lg border border-zinc-800 bg-zinc-950/50 px-2 py-1.5 transition-colors focus-within:border-zinc-600">
-            <Plus size={12} className="text-zinc-600" />
+          <div className="flex items-center gap-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-2 py-1.5 transition-colors focus-within:border-[var(--color-text-muted)]">
+            <Plus size={12} className="text-[var(--color-text-muted)]" />
             <input
               type="text"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               placeholder="Add task…"
-              className="flex-1 bg-transparent text-sm text-zinc-200 outline-none placeholder:text-zinc-600"
+              className="flex-1 bg-transparent text-sm text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)]"
             />
           </div>
         </form>
@@ -172,7 +172,7 @@ function KanbanColumn({
             ))}
           </SortableContext>
         ) : (
-          <p className="py-6 text-center text-xs text-zinc-600">Empty</p>
+          <p className="py-6 text-center text-xs text-[var(--color-text-muted)]">Empty</p>
         )}
       </div>
     </div>
@@ -297,12 +297,12 @@ export function KanbanClient() {
         {COLUMNS.map((col) => (
           <div
             key={col.status}
-            className="rounded-xl border border-zinc-800/60 bg-zinc-900/30 p-3"
+            className="rounded-xl border border-[var(--color-border)]/60 bg-[var(--color-surface)]/30 p-3"
           >
-            <div className="mb-3 h-4 w-16 animate-pulse rounded bg-zinc-800" />
+            <div className="mb-3 h-4 w-16 animate-pulse rounded bg-[var(--color-surface-hover)]" />
             <div className="space-y-2">
-              <div className="h-14 animate-pulse rounded-lg bg-zinc-800/50" />
-              <div className="h-14 animate-pulse rounded-lg bg-zinc-800/50" />
+              <div className="h-14 animate-pulse rounded-lg bg-[var(--color-surface-hover)]/50" />
+              <div className="h-14 animate-pulse rounded-lg bg-[var(--color-surface-hover)]/50" />
             </div>
           </div>
         ))}
@@ -313,7 +313,7 @@ export function KanbanClient() {
   return (
     <div className="flex flex-col gap-1.5">
       {/* Header */}
-      <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
         Kanban
       </p>
 
@@ -340,9 +340,9 @@ export function KanbanClient() {
 
         <DragOverlay>
           {activeItem ? (
-            <div className="flex items-start gap-2 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2.5 shadow-2xl">
-              <GripVertical size={12} className="mt-0.5 text-zinc-500" />
-              <p className="text-sm text-zinc-200">{activeItem.text}</p>
+            <div className="flex items-start gap-2 rounded-lg border border-[var(--color-text-muted)] bg-[var(--color-surface-hover)] px-3 py-2.5 shadow-2xl">
+              <GripVertical size={12} className="mt-0.5 text-[var(--color-text-muted)]" />
+              <p className="text-sm text-[var(--color-text-primary)]">{activeItem.text}</p>
             </div>
           ) : null}
         </DragOverlay>

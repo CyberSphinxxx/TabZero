@@ -61,13 +61,13 @@ export function AddEventModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="w-full max-w-sm rounded-xl border border-zinc-800 bg-zinc-900 p-5 shadow-2xl">
+      <div className="w-full max-w-sm rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-zinc-200">New Event</p>
+          <p className="text-sm font-medium text-[var(--color-text-primary)]">New Event</p>
           <button
             onClick={onClose}
-            className="text-zinc-600 transition-colors hover:text-zinc-400"
+            className="text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
           >
             <X size={16} />
           </button>
@@ -82,58 +82,58 @@ export function AddEventModal({
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Event title"
             autoFocus
-            className="w-full rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2 text-sm text-zinc-200 outline-none placeholder:text-zinc-600 focus:border-zinc-600"
+            className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-text-muted)]"
           />
 
           {/* Date */}
           <div>
-            <label className="mb-1 block text-[11px] text-zinc-500">
+            <label className="mb-1 block text-[11px] text-[var(--color-text-muted)]">
               Date
             </label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2 text-sm text-zinc-200 outline-none focus:border-zinc-600"
+              className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-text-muted)]"
             />
           </div>
 
           {/* Time row */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="mb-1 block text-[11px] text-zinc-500">
+              <label className="mb-1 block text-[11px] text-[var(--color-text-muted)]">
                 Start
               </label>
               <input
                 type="time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2 text-sm text-zinc-200 outline-none focus:border-zinc-600"
+                className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-text-muted)]"
               />
             </div>
             <div>
-              <label className="mb-1 block text-[11px] text-zinc-500">
+              <label className="mb-1 block text-[11px] text-[var(--color-text-muted)]">
                 End
               </label>
               <input
                 type="time"
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2 text-sm text-zinc-200 outline-none focus:border-zinc-600"
+                className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)]/50 px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-text-muted)]"
               />
             </div>
           </div>
 
           {/* Repeat */}
           <div className="flex items-center gap-3">
-            <label className="text-[11px] text-zinc-500">Repeat</label>
+            <label className="text-[11px] text-[var(--color-text-muted)]">Repeat</label>
             <button
               type="button"
               onClick={() => setRepeat(repeat === "none" ? "weekly" : "none")}
               className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                 repeat === "weekly"
-                  ? "bg-indigo-500/20 text-indigo-400"
-                  : "bg-zinc-800 text-zinc-500 hover:text-zinc-300"
+                  ? "bg-[var(--color-accent)]/20 text-[var(--color-accent)]"
+                  : "bg-[var(--color-surface-hover)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
               }`}
             >
               {repeat === "weekly" ? "Weekly" : "None"}
@@ -142,7 +142,7 @@ export function AddEventModal({
 
           {/* Color picker */}
           <div className="flex items-center gap-2">
-            <span className="text-[11px] text-zinc-500">Color</span>
+            <span className="text-[11px] text-[var(--color-text-muted)]">Color</span>
             <div className="flex gap-1.5">
               {PRESET_COLORS.map((c) => (
                 <button
@@ -163,7 +163,7 @@ export function AddEventModal({
           <button
             type="submit"
             disabled={!title.trim()}
-            className="mt-1 rounded-lg bg-zinc-200 px-4 py-2 text-sm font-medium text-zinc-900 transition-colors hover:bg-white disabled:opacity-30"
+            className="mt-1 rounded-lg bg-[var(--color-text-primary)] px-4 py-2 text-sm font-medium text-[var(--color-bg)] transition-colors hover:opacity-90 disabled:opacity-30"
           >
             Add Event
           </button>

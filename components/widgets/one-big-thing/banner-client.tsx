@@ -46,8 +46,8 @@ export function BannerClient() {
   if (loading) {
     return (
       <div className="flex flex-1 items-center gap-3">
-        <div className="h-5 w-5 animate-pulse rounded-full bg-zinc-800" />
-        <div className="h-5 flex-1 animate-pulse rounded bg-zinc-800" />
+        <div className="h-5 w-5 animate-pulse rounded-full bg-[var(--color-surface-hover)]" />
+        <div className="h-5 flex-1 animate-pulse rounded bg-[var(--color-surface-hover)]" />
       </div>
     );
   }
@@ -59,7 +59,7 @@ export function BannerClient() {
         <span className="text-2xl">🎯</span>
         <button
           onClick={startEditing}
-          className="text-left text-lg font-medium text-zinc-500 transition-colors hover:text-zinc-300"
+          className="text-left text-lg font-medium text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text-secondary)]"
         >
           What&apos;s the one thing you need to get done today?
         </button>
@@ -80,7 +80,7 @@ export function BannerClient() {
           onBlur={commitEdit}
           onKeyDown={handleKeyDown}
           placeholder="What&apos;s the one thing?"
-          className="flex-1 bg-transparent text-lg font-medium text-zinc-200 outline-none placeholder:text-zinc-600"
+          className="flex-1 bg-transparent text-lg font-medium text-[var(--color-text-primary)] outline-none placeholder:text-[var(--color-text-muted)]"
         />
       </div>
     );
@@ -93,8 +93,8 @@ export function BannerClient() {
         onClick={toggleCompleted}
         className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors ${
           task?.completed
-            ? "border-emerald-500 bg-emerald-500/20"
-            : "border-zinc-600 hover:border-zinc-400"
+            ? "border-[var(--color-success)] bg-[var(--color-success)]/20"
+            : "border-[var(--color-text-muted)] hover:border-[var(--color-text-secondary)]"
         }`}
         aria-label={task?.completed ? "Mark as incomplete" : "Mark as complete"}
       >
@@ -108,7 +108,7 @@ export function BannerClient() {
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-emerald-400"
+            className="text-[var(--color-success)]"
           >
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -117,10 +117,10 @@ export function BannerClient() {
       <span className="text-2xl">🎯</span>
       <button
         onClick={startEditing}
-        className={`text-left text-lg font-medium transition-colors hover:text-zinc-300 ${
+        className={`text-left text-lg font-medium transition-colors hover:text-[var(--color-text-secondary)] ${
           task?.completed
-            ? "text-zinc-600 line-through"
-            : "text-zinc-200"
+            ? "text-[var(--color-text-muted)] line-through"
+            : "text-[var(--color-text-primary)]"
         }`}
       >
         {task?.title}

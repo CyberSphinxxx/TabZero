@@ -7,22 +7,35 @@ import {
   useCallback,
   useRef,
   useEffect,
+  memo,
   type ReactNode,
 } from "react";
 
-interface FocusContextValue {
+// --------------- Stable actions context (rarely changes) ---------------
+
+interface FocusActions {
   isFocusMode: boolean;
   toggleFocusMode: () => void;
-  /** Remaining seconds in the current Pomodoro cycle */
-  remaining: number;
-  /** Total seconds for the current cycle */
-  total: number;
-  /** Whether the timer is actively counting down */
-  timerActive: boolean;
   startTimer: () => void;
   pauseTimer: () => void;
   resetTimer: () => void;
 }
+
+const FocusActionsContext = createContext<FocusActions | null>(null);
+
+// --------------- Fast-changing timer state context ---------------
+
+interface TimerState {
+  remaining: number;
+  total: number;
+  timerActive: boolean;
+}
+
+const TimerStateContext = createContext<TimerState | null>(null);
+
+// --------------- Full value (backward-compatible) ---------------
+
+interface FocusContextValue extends FocusActions, TimerState {}
 
 const FocusContext = createContext<FocusContextValue | null>(null);
 
@@ -79,28 +92,65 @@ export function FocusProvider({ children }: { children: ReactNode }) {
     setIsFocusMode((prev) => !prev);
   }, []);
 
+  const actions: FocusActions = {
+    isFocusMode,
+    toggleFocusMode,
+    startTimer,
+    pauseTimer,
+    resetTimer,
+  };
+
+  const timerState: TimerState = {
+    remaining,
+    total: POMODORO_SECONDS,
+    timerActive,
+  };
+
   return (
     <FocusContext.Provider
-      value={{
-        isFocusMode,
-        toggleFocusMode,
-        remaining,
-        total: POMODORO_SECONDS,
-        timerActive,
-        startTimer,
-        pauseTimer,
-        resetTimer,
-      }}
+      value={{ ...actions, ...timerState }}
     >
-      {children}
+      <FocusActionsContext.Provider value={actions}>
+        <TimerStateContext.Provider value={timerState}>
+          {children}
+        </TimerStateContext.Provider>
+      </FocusActionsContext.Provider>
     </FocusContext.Provider>
   );
 }
 
+/**
+ * Full focus context — re-renders on every timer tick when active.
+ * Use `useFocusActions()` when you only need action callbacks (no timer state).
+ */
 export function useFocus(): FocusContextValue {
   const context = useContext(FocusContext);
   if (!context) {
     throw new Error("useFocus must be used within a FocusProvider");
+  }
+  return context;
+}
+
+/**
+ * Stable action callbacks only — never re-renders on timer ticks.
+ * Use this in components that only call start/pause/reset/toggle.
+ */
+export function useFocusActions(): FocusActions {
+  const context = useContext(FocusActionsContext);
+  if (!context) {
+    throw new Error("useFocusActions must be used within a FocusProvider");
+  }
+  return context;
+}
+
+/**
+ * Timer state only — re-renders on every tick when active.
+ * Use this in components that display remaining time.
+ */
+export function useTimerState(): TimerState {
+  const context = useContext(TimerStateContext);
+  if (!context) {
+    throw new Error("useTimerState must be used within a FocusProvider");
   }
   return context;
 }

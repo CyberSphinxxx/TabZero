@@ -1,0 +1,43 @@
+name: Graphify
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - graphify-out/**
+      - .github/workflows/graphify.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          # Fetch full history so the manifest can compare mtimes (not needed for
+          # --update, but harmless to have for a future semantic extraction step).
+          fetch-depth: 2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install graphify
+        run: uv tool install --upgrade graphifyy
+
+      - name: Rebuild graph (AST only — no API key needed)
+        run: graphify update . --force
+
+      - name: Commit updated graph
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-rebuild knowledge graph [skip ci]"
+          commit_user_name: "graphify-bot"
+          commit_user_email: "graphify-bot@users.noreply.github.com"
+          file_pattern: graphify-out/
+          skip_fetch: true

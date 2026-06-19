@@ -40,6 +40,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# graphify (auto-generated build artifact — CI commits it)
+/graphify-out/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

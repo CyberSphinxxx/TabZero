@@ -9,7 +9,7 @@ export function LoginGate({ children }: { children: ReactNode }) {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-600 border-t-zinc-200" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--color-border)] border-t-[var(--color-text-secondary)]" />
       </div>
     );
   }
@@ -18,14 +18,14 @@ export function LoginGate({ children }: { children: ReactNode }) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 px-4">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight">TabZero</h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <h1 className="text-4xl font-bold tracking-tight text-[var(--color-text-primary)]">TabZero</h1>
+          <p className="mt-2 text-sm text-[var(--color-text-secondary)]">
             Your command center awaits.
           </p>
         </div>
         <button
           onClick={signInWithGoogle}
-          className="inline-flex items-center gap-3 rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-3 text-sm font-medium text-zinc-100 transition-colors hover:bg-zinc-800"
+          className="inline-flex items-center gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-surface-hover)]"
         >
           <GoogleLogo />
           Sign in with Google

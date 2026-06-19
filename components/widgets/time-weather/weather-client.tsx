@@ -76,26 +76,26 @@ export function WeatherClient() {
   return (
     <div className="flex h-full flex-col justify-between">
       {/* Label */}
-      <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+      <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
         Time &amp; Weather
       </p>
 
       {/* Time section — always visible */}
       <div className="mt-2">
-        <p className="text-4xl font-light tracking-tight text-zinc-100">
+        <p className="text-4xl font-light tracking-tight text-[var(--color-text-primary)]">
           {formatTime(time)}
         </p>
-        <p className="mt-0.5 text-sm text-zinc-500">{formatDate(time)}</p>
+        <p className="mt-0.5 text-sm text-[var(--color-text-muted)]">{formatDate(time)}</p>
       </div>
 
       {/* Weather section */}
       <div className="mt-3 flex items-center gap-2">
         {weatherLoading ? (
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 animate-pulse rounded-full bg-zinc-800" />
+            <div className="h-10 w-10 animate-pulse rounded-full bg-[var(--color-surface-hover)]" />
             <div className="space-y-1">
-              <div className="h-5 w-16 animate-pulse rounded bg-zinc-800" />
-              <div className="h-3 w-20 animate-pulse rounded bg-zinc-800/50" />
+              <div className="h-5 w-16 animate-pulse rounded bg-[var(--color-surface-hover)]" />
+              <div className="h-3 w-20 animate-pulse rounded bg-[var(--color-surface-hover)]/50" />
             </div>
           </div>
         ) : weather ? (
@@ -106,16 +106,16 @@ export function WeatherClient() {
               className="h-10 w-10"
             />
             <div>
-              <p className="text-lg font-medium text-zinc-200">
+              <p className="text-lg font-medium text-[var(--color-text-primary)]">
                 {weather.temp}&deg;
               </p>
-              <p className="text-[11px] capitalize text-zinc-500">
+              <p className="text-[11px] capitalize text-[var(--color-text-muted)]">
                 {weather.description}
               </p>
             </div>
           </>
         ) : (
-          <p className="text-sm text-zinc-600">Weather unavailable</p>
+          <p className="text-sm text-[var(--color-text-muted)]">Weather unavailable</p>
         )}
       </div>
     </div>

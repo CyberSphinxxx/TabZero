@@ -32,13 +32,13 @@ export function TodoClient() {
   if (loading) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Todo List
         </p>
         <div className="space-y-2">
-          <div className="h-9 animate-pulse rounded-lg bg-zinc-800" />
-          <div className="h-5 animate-pulse rounded bg-zinc-800/50" />
-          <div className="h-5 w-3/4 animate-pulse rounded bg-zinc-800/50" />
+          <div className="h-9 animate-pulse rounded-lg bg-[var(--color-surface-hover)]" />
+          <div className="h-5 animate-pulse rounded bg-[var(--color-surface-hover)]/50" />
+          <div className="h-5 w-3/4 animate-pulse rounded bg-[var(--color-surface-hover)]/50" />
         </div>
       </div>
     );
@@ -48,11 +48,11 @@ export function TodoClient() {
     <div className="flex flex-col gap-1.5">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-text-muted)]">
           Todo List
         </p>
         {todos.length > 0 && (
-          <span className="text-[11px] text-zinc-600">
+          <span className="text-[11px] text-[var(--color-text-muted)]">
             {incompleteCount} left
           </span>
         )}
@@ -67,7 +67,7 @@ export function TodoClient() {
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Add a task…"
-          className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2 text-sm text-zinc-200 outline-none transition-colors placeholder:text-zinc-600 focus:border-zinc-600 focus:bg-zinc-800/80"
+          className="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-3 py-2 text-sm text-[var(--color-text-primary)] outline-none transition-colors placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-text-muted)] focus:bg-[var(--color-surface-hover)]/80"
         />
       </form>
 
@@ -77,15 +77,15 @@ export function TodoClient() {
           {todos.map((todo) => (
             <div
               key={todo.id}
-              className="group flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-zinc-800/50"
+              className="group flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-[var(--color-surface-hover)]/50"
             >
               {/* Checkbox */}
               <button
                 onClick={() => toggle(todo.id, todo.completed)}
                 className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors ${
                   todo.completed
-                    ? "border-emerald-500 bg-emerald-500/20"
-                    : "border-zinc-600 hover:border-zinc-400"
+                    ? "border-[var(--color-success)] bg-[var(--color-success)]/20"
+                    : "border-[var(--color-text-muted)] hover:border-[var(--color-text-secondary)]"
                 }`}
                 aria-label={todo.completed ? "Mark as incomplete" : "Mark as complete"}
               >
@@ -99,7 +99,7 @@ export function TodoClient() {
                     strokeWidth="3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="text-emerald-400"
+                    className="text-[var(--color-success)]"
                   >
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
@@ -110,8 +110,8 @@ export function TodoClient() {
               <span
                 className={`flex-1 truncate text-sm transition-colors ${
                   todo.completed
-                    ? "text-zinc-600 line-through"
-                    : "text-zinc-300"
+                    ? "text-[var(--color-text-muted)] line-through"
+                    : "text-[var(--color-text-secondary)]"
                 }`}
               >
                 {todo.text}
@@ -120,7 +120,7 @@ export function TodoClient() {
               {/* Delete */}
               <button
                 onClick={() => remove(todo.id)}
-                className="shrink-0 text-zinc-700 opacity-0 transition-all hover:text-zinc-400 group-hover:opacity-100"
+                className="shrink-0 text-[var(--color-text-muted)] opacity-0 transition-all hover:text-[var(--color-text-secondary)] group-hover:opacity-100"
                 aria-label="Delete task"
               >
                 <X size={14} />
@@ -129,7 +129,7 @@ export function TodoClient() {
           ))}
         </div>
       ) : (
-        <p className="mt-4 text-center text-sm text-zinc-600">
+        <p className="mt-4 text-center text-sm text-[var(--color-text-muted)]">
           Nothing urgent. Add a task &mdash; hit Enter to save.
         </p>
       )}
